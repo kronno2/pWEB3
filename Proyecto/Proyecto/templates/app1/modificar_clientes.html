@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %} Modificar clientes {% endblock %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container m-lg-10 pl-5 pr-5 mb-5">
+    <div style="margin: 10px;">
+        <h2>Modificar clientes</h2>
+        <form action="#" method="post" class="agregar">
+            {% csrf_token %}
+            {{ formulario.as_p}}
+            <input type="submit" class="btn btn-success" value="Modificar">
+        </form>
+    </div>
+</div>
+{% else %}
+<h1 class="text-center text-danger">ALTO AHI RUFIAN, NO TIENES PERMISO PARA INGRESAR A ESTA PAGINA</h1>
+{% endif %}
+
+{% endblock %}

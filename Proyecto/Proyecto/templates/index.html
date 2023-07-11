@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %} Inicio {% endblock %}
+{% load static %}
+
+{% block content %}
+<!--carrusel -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block carrusel-img " src="{% static 'img/wall1.png' %}" alt="First slide">
+      <div class="carousel-caption d-none  d-md-block">
+        <H4>“Incluso el caniche más pequeño tiene un corazón de león, listo para hacer cualquier cosa para defender
+          el hogar, el amo y la amante.”</H4>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block carrusel-img" src="{% static 'img/wall2.jpg' %}" alt="Second slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h4>“Por naturaleza, todos los perros han evolucionado como carnívoros, biológicamente adaptados a una dieta
+          rica y variada en carnes frescas con pequeñas proporciones de frutas, vegetales y pastos.”</h4>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img class="d-block carrusel-img" src="{% static 'img/wall3.jpg' %}" alt="Third slide">
+      <div class="carousel-caption d-none d-md-block">
+        <h4>“El gato posee belleza sin vanidad, fuerza sin insolencia, coraje sin ferocidad, todas las virtudes del
+          hombre sin sus vicios.”</h4>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Anterior</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Siguiente</span>
+  </a>
+</div>
+
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+
+      <!--Carrito solo para usuario registrados-->
+      {% if user.is_authenticated %}
+      <div style="float: right;">
+        {% include "carro/widget.html" %}
+      </div>
+      {% endif %}
+
+      <div class="container text-center bg-secondary mt-3" style="font-size: 30px;">
+        <a href="">Alimentos</a> &nbsp;
+        <a href="">Accesorios</a> &nbsp;
+        <a href="">Higiene</a>
+      </div>
+
+      {% include "productos.html" %}
+
+        <div class="container m-5">
+          {% for p in producto %}
+            {% if p.categoria.nombre == 'Alimentos' %}
+              <h1 class="bg-danger text-dark">Nombre producto: {{p.nombre}}</h1>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

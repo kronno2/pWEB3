@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+{%load static %}
+{% block title %} Registro usuario {% endblock %}
+{% block content %}
+
+<div class="container formulario" style="margin: auto; width: 800px; padding: 35px; margin-top: 30px; margin-bottom: 30px;">
+    <h1 class="text-center">Registro usuario</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn-primary p-2">Registrar</button>
+</form>
+</div>
+
+{% endblock content %}

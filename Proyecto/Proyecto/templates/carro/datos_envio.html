@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %} Orden de pedido {% endblock %}
+{% load static %}
+
+{% block content %}
+<style>
+    .btn_pagar{
+        float: right;
+        border: black solid 1px;
+        width: 100px;
+        padding: 5px;
+    }
+
+    .btn_cancelar{
+        border: black solid 1px;
+        float: left;
+        width: 100px;
+        padding: 5px;
+    }
+
+    .formulario{
+        width: 70%;
+        margin: auto;
+        padding: 50px;
+        padding-top: 7px;
+        margin-bottom: 20px;
+    }
+
+    .formula{
+        padding-bottom: 20px;
+    }
+</style>
+
+<div class="container formula">
+    <h1 class="text-center">Orden de pedido</h1>
+    <form action="#" method="POST" class="formulario">   
+        {% csrf_token %}
+        {{ pedido.as_p }}
+        <a href="{% url 'home' %}"  class="btn btn-danger btn_cancelar">Cancelar</a>
+        <input type="submit" value="Pagar" class="btn btn-success btn_pagar"> 
+    </form>
+   
+</div>
+
+{% endblock %}

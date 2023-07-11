@@ -1,0 +1,180 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} {% endblock %}</title>
+  <!--font awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+  <!--google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&display=swap" rel="stylesheet">
+  <!--bootstrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!--custom css-->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!--favi-->
+  <link rel="icon" href="{% static 'img/favicon.png' %}">
+
+</head>
+
+<body class="container-fluid " onload="relojito()">
+  <div>
+    <div class="logo">
+      <header>
+        <img class="logo-img" src="{% static 'img/logo-animal.png' %}" alt="image logo">
+      </header>
+    </div>
+
+    <div class="navegar">
+      <nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: rgba(75, 182, 146, 0.945);">
+        <div class="container-fluid">
+          <a class="navbar-brand" style="font-size: 26px;" href="{% url 'home' %}"><img
+              src="{% static 'img/perro-logo.png' %}" alt="perrito" width="60px"
+              class="d-inline-block align-text-top">AniMall</a>
+          <button class="navbar-toggler" style="border-style: none;" type="button" data-toggle="collapse"
+            data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span><img src="{% static 'img/menu.ico' %}" style="width: 40px;" alt="image logo"> </span>
+          </button>
+          <div class="collapse navbar-collapse nav-li" id="navbarToggler">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link " style="font-size: 20px; " href="{% url 'home' %}">Tienda</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link " style=" font-size: 20px;" href="{% url 'contacto' %}">Contacto</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" style=" font-size: 20px;" href="{% url 'preguntas' %}">Preguntas frecuentes</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-info ml-3 mr-3" style="font-size: 18px;" href="{% url 'consumo_api' %}">Consumir api</a>
+              </li>
+
+              <!--relojito-->
+              <form name="form_reloj">
+                <input style="height: 30px; background-color: rgb(129, 162, 61);" 
+                type="text" name="reloj" size="4"class="text-center ml-4">
+              </form>
+
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="btn btn-info ml-5" style="font-size: 18px;" href="{% url 'mostrar_estado' user.username %}">Mis pedidos</a>
+              </li>
+              {% endif %}
+          
+
+              {% if user.is_staff %}
+                <li class="nav-item">
+                  <a class="nav-link btn btn-success text-light ml-5" style=" font-size: 18px;" href="{% url 'mostrar_clientes' %}">Clientes, pedidos y productos.</a>
+                </li>
+              {% endif %}
+            </ul>
+
+            <div>
+              {% if request.user.is_staff %}
+               
+               {% else %}
+               <a href="https://www.facebook.com/felipe.santibanezvega/" target="_blank"><i><img
+                src="{% static 'img/face.ico'%}" width="40px" alt="face"></i></a>
+               <a href="https://www.instagram.com/i.amlegion/" target="_blank" class="pl-2"><i><img
+                src="{% static 'img/insta.ico' %}" width="40px" alt="insta"></i></a>
+               {% endif %}
+
+              {% if user.is_authenticated %}
+              <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar sesión</a>
+              <a href="#" class="bg-light p-1" style="font-size: 20px; text-decoration: none; border-radius: 10px;">{{ user.username }}</a>
+              {% else %}
+              <A href="{% url 'login' %}" class="btn btn-success">Iniciar sesión</A>
+              <a href="{% url 'registrar' %}" class="btn btn-primary">Registrarse</a>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+  
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer class="pt-5 footer">
+      <div class="container mb-5">
+        <div class="row">
+          <div class="col-md-3 mb-4 mb-md-0 text-center text-md-left">
+            <img src="{% static 'img/logo-animal.png' %}" width="160px" alt="imagen-inferior">
+          </div>
+          <div class="col-md-3 mb-4 mb-md-0 text-dark text-center text-md-left">
+            <ul class="list-unstyled mb-0">
+              <li><a href="#" class="text-dark">Inicio</a></li>
+              <li><a href="#" class="text-dark">Productos</a></li>
+              <li><a href="#" class="text-dark">Contacto</a></li>
+              <li><a href="#" class="text-dark">¿Quienes somos?</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 mb-4 mb-md-0 text-dark text-center text-md-left">
+            <p class="mb-0"><b>Whatsapp:</b><br>+569 4959 26**</p>
+            <p class="mb-0"><b>E-mail:</b><br>ventas@animall.cl</p>
+          </div>
+          <div class="col-md-3 text-dark text-center text-md-left">
+            <h6 class="text-uppercase mb-3">Encuentranos en redes sociales</h6>
+            <div class="d-flex justify-content-center justify-content-md-start rrss">
+              <a class="text-dark mr-4" target="new" href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a class="text-dark" target="new" href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex text-dark fa-border  ">
+        <p class="mb-2 text-center">Nicolás Acuña 2023 <i class="fa-regular fa-copyright"></i></p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="{% static 'js/reloj.js' %}"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+  {% if messages %}
+  {% for m in messages %}
+  <script>
+    Swal.fire({
+      position: 'top',
+      icon: 'info',
+      title: '{{ m }}',
+      showConfirmButton: false,
+      timer: 800
+    })
+  </script>
+  {% endfor %}
+  {% endif %}
+
+
+</body>
+
+</html>

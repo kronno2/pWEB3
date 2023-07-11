@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block title %} Lista clientes {% endblock %}
+{% load humanize %}
+
+{% block content %}
+
+<style>
+@media screen and (max-width: 600px) {
+       table {
+           width:100%;
+       }
+       thead {
+           display: none;
+       }
+       tr:nth-of-type(2n) {
+           background-color: inherit;
+       }
+       tr td:first-child {
+           background: #504b4bc7;
+           font-weight:bold;
+           font-size:1.3em;
+       }
+       tbody td {
+           display: block;
+           text-align:center;
+       }
+       tbody td:before {
+           content: attr(data-th);
+           display: block;
+           text-align:center;
+       }
+
+     
+}
+</style>
+
+<h1 class="text-center">Clientes</h1>
+    
+<div class="container-fluid">
+    <div class="container p-3">
+        <div class=" container bg-light" style="background-color: aqua;">
+            <a href="{% url 'agregar_cliente' %}" class="btn btn-primary float-right mr-5  " style="width: 120px;">Agregar cliente</a>
+        </div>
+    <table class="table table-striped bg-light">
+        <thead>
+            <tr class="bg-secondary">
+                <th>Id</th>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Telefono</th>
+                <th>¿Activo?</th>
+                <th>¿Staff?</th>
+                {% if perms.aplicacion1 %}
+                <th>Modificar</th>
+                <th>Eliminar</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in clientes %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td>{{ c.username }}</td>
+                <td>{{ c.first_name }}</td>
+                <td>{{ c.last_name }}</td>
+                <td>{{ c.email }}</td>
+                <td>{{ c.telefono }}</td>
+                <td>{{ c.is_active }}</td>
+                <td>{{ c.is_staff }}</td>
+                {% if perms.aplicacion1 %}
+                <td><a class="btn btn-success" href="{% url 'modificar_cliente' c.id %}">Modificar</a></td>
+                <td><a class="btn btn-danger" href="{% url 'eliminar_clientes' c.id %}">Eliminar</a></td>
+                {% endif %}      
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+
+<h1 class="text-center">Ordenes de pedido</h1>
+<div class="container-fluid p-3">
+    <div class="container">
+    <table class="table table-striped bg-light">
+        <thead>
+            <tr class="bg-secondary">
+                <th>Id</th>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>producto_nombre</th>
+                <th>Direccion</th>
+                <th>Costo</th>
+                <th>Fecha solicitud</th>
+                <th>Estado</th>
+                <th>modificar estado</th>
+                <th>Transito</th>
+                <th>Entregado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pedidos %}
+            <tr>
+                <td>{{ p.id }}</td>
+                <td>{{ p.usuario }}</td>
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.apellido }}</td>
+                <td>{{ p.producto_nombre }}</td>
+                <td>{{ p.direccion }}</td>
+                <td>${{ p.costo|intcomma }}</td>
+                <td>{{ p.fecha_solicitud }}</td>
+                <td>{{ p.estado }}</td>
+                <th> <a class="btn text-center text-dark btn-warning"
+                     style="border: 1px solid black; 
+                     margin-bottom: 10px; padding-bottom: 30%; height: 30px; 
+                     width: 100%;" href="{% url 'modificar_pedido' p.id %}">Modificar</a> </th>
+                     <th><a class="btn btn-primary" href="{% url 'estado_transito' p.id %}"style="border: 1px solid black;">Transito</a></th>
+                     <th><a class="btn btn-success" href="{% url 'estado_entregado' p.id %}"style="border: 1px solid black;">Entregado</a></th>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+</div>
+
+
+
+<h1 class="text-center">Productos</h1>
+
+<div class="container-fluid p-3">
+    <div class="container">
+        <a href="{% url 'agregar' %}" class="btn btn-primary float-right"
+style="border-radius: 5px; border: solid black 1px; height: 50px;">Agregar producto</a>
+    <table class="table table-striped bg-light">
+        <thead>
+            <tr class="bg-secondary">
+                <th>Id</th>
+                <th>nombre</th>
+                <th>categoria</th>
+                <th>precio</th>
+                <th>disponibilidad</th>
+                <th>Descripcion</th>
+                <th>Created</th>
+                <th>Update</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in articulos %}
+            <tr>
+                <td>{{ a.id }}</td>
+                <td>{{ a.nombre }}</td>
+                <td>{{ a.categoria }}</td>
+                <td>${{ a.precio|intcomma }}</td>
+                <td>{{ a.disponibilidad }}</td>
+                <td>{{ a.descripcion }}</td>
+                <td>{{ a.created}}</td>
+                <td>{{ a.update }}</td>
+                
+                <th> <a class="btn text-center text-light btn-success"
+                    style="border: 1px solid black; 
+                    margin-bottom: 10px; padding-bottom: 30%; height: 30px; 
+                    width: 100%;" href="{% url 'modificar_producto' a.id %}">Modificar</a> </th>
+                <td><a href="{% url 'eliminar_producto' a.id %}" class="btn btn-danger rounded"style="border: 1px solid black;">Eliminar</a></td>
+               
+            </tr>
+
+
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+</div>
+
+
+
+{% endblock %}

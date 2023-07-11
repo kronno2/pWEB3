@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <table class="table table-striped bg-light">
+        <thead>
+            <tr class="bg-secondary">
+                <th>Nombre</th>
+                <th>Genero</th>
+                <th>Ciudad</th>
+                <th>Email</th>
+                <th>Usuario</th>
+                <th>Contraseña</th>
+                <th>Fotito</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{nombre}}</td>
+                <td>{{genero}}</td>
+                <td>{{ciudad}}</td>
+                <td>{{email}}</td>
+                <td>{{usuario}}</td>
+                <td>{{pass}}</td>
+                <td><img src="{{fotito}}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

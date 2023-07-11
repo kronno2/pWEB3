@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %} contacto {% endblock %}
+{%load static %}
+
+{% block content %}
+<!--banner-->
+<img src="{% static 'img/wall2.jpg' %}" alt="" class="banner-img">
+
+<!--Contenido contacto-->
+<div class="row article-contacto">
+  <div class="col-lg info">
+    <p id="contenido"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed mattis enim vitae orci.
+      Phasellus libero. Maecenas nisl arcu, consequat congue, commodo nec, commodo ultricies, turpis. <br> Quisque
+      sapien
+      nunc, posuere vitae, rutrum et, luctus at, pede. Pellentesque massa ante, ornare id, aliquam vitae, ultrices
+      porttitor, pede. Nullam sit amet nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis,
+      faucibus ut, rhoncus non, mi. <br>
+      Duis pellentesque, felis eu adipiscing ullamcorper, odio urna consequat arcu, at
+      posuere ante quam non dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Duis scelerisque.</p>
+    <a id="link" href="#" onclick="muestraOculta(); return false;">Ocultar contenido</a>
+  </div>
+
+  <div class="col-lg formulario">
+    <form action="#" method="post">
+      {% csrf_token %}
+      {{ formulario.as_table }}
+      <div class="center-content">
+        <input type="submit" class="btn-producto" value="Enviar">
+      </div>
+    </form>
+  </div>
+
+  <div class="col-lg info-contacto">
+    <ul class="fa-ul ml-4">
+      <li id="texto"><span class="fa-li"><i class="fa-solid fa-location-dot"></i></span>Maipu</li>
+      <li id="texto"><span class="fa-li"><i class="fa-solid fa-phone"></i></span>+569 4959 2631</li>
+      <div id="adicional" class="oculto">
+        <li>contacto@animall.cl</li>
+        <li>Horarios de atención: Lunes a Viernes 10:00 a 22:00 y Sábado 12:00 a 19:00</li>
+      </div>
+      <a id="enlace" href="#" onclick="muestraInfo(); return false;">Mostrar todo</a>
+    </ul>
+
+    <div class="mapa">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d974.8334373180297!2d-70.752813208500
+            57!3d-33.51103694512301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e3!4m3!3m2!1d-33.5108613!2d-70.7527
+            126!4m3!3m2!1d-33.510971399999995!2d-70.7527566!5e0!3m2!1ses-419!2scl!4v1652192872347!5m2!1ses-419!2scl"
+        width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/dom.js' %}"></script>
+{% endblock %}
